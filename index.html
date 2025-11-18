@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flavoro Assistant Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #chat-container {
+      width: 400px;
+      max-width: 90%;
+      height: 600px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    #chat-box {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      border-bottom: 1px solid #ccc;
+    }
+    .message {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 15px;
+      max-width: 80%;
+      clear: both;
+    }
+    .user-message {
+      background-color: #007bff;
+      color: #fff;
+      float: right;
+    }
+    .bot-message {
+      background-color: #e0e0e0;
+      float: left;
+    }
+    #chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+    #chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+    #chat-input button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #chat-input button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div id="chat-container">
+  <div id="chat-box"></div>
+  <div id="chat-input">
+    <input type="text" id="user-input" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+  const chatBox = document.getElementById('chat-box');
+  const userInput = document.getElementById('user-input');
+
+  // Function to add messages to chat
+  function addMessage(message, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message');
+    messageDiv.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+    messageDiv.textContent = message;
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  // Function to simulate sending a message
+  function sendMessage() {
+    const message = userInput.value.trim();
+    if (!message) return;
+
+    addMessage(message, 'user');
+    userInput.value = '';
+
+    // Placeholder for chatbot response
+    setTimeout(() => {
+      const botResponse = getBotResponse(message);
+      addMessage(botResponse, 'bot');
+    }, 500);
+  }
+
+  // Example function to generate bot responses (replace with actual API call)
+  function getBotResponse(message) {
+    // Simple example responses
+    if (message.toLowerCase().includes('pancake')) {
+      return "I love pancakes! Do you want a recipe or flavor suggestions?";
+    } else if (message.toLowerCase().includes('chocolate')) {
+      return "Chocolate pairs well with strawberries and bananas!";
+    } else {
+      return "I'm Flavoro Assistant! Ask me about dishes, recipes, or flavor pairings.";
+    }
+  }
+
+  // Allow pressing Enter to send message
+  userInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') sendMessage();
+  });
+</script>
+
+</body>
+</html>
+
+
+ 
